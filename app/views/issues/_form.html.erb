@@ -1,0 +1,71 @@
+<%= form_for @issue, :html => { :class => "form-horizontal issue" } do |f| %>
+
+  <% if @issue.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@issue.errors.count, "error") %> prohibited this issue from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @issue.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :vol, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.number_field :vol, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:title) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :title, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:title) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Document", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= link_to 'Downoad PDF', @issue.docs.url unless @issue.new_record?%>
+      <%= f.file_field :docs, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:docs) %>
+  </div>
+  <%#=f.fields_for :issue_authors do |ia|%>
+    <div class="form-group">
+      <%= f.label "Authors", :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.select :author_ids,
+          Author.all.map { |u| [u.name, u.id] },
+                       { include_blank: true },
+                       { class: 'chosen-select', :multiple=>true }
+        %>
+      </div>
+      <%#=ia.error_span(:author_id) %>
+    </div>
+  <%# end %>
+  <div class="form-group">
+    <%= f.label :page_no, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :page_no, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:page_no) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                issues_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

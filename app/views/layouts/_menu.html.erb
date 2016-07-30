@@ -1,0 +1,21 @@
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Ijrsm</a>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Home",  root_path %></li>
+        <li><%= link_to "About", about_path  %></li>
+        <li><%= link_to "Editorial Board", board_path  %></li>
+        <li><%= link_to "Authors", authors_path  if current_user %></li>
+        <li><%= link_to "Issues", issues_path  %></li>
+        <li><%= link_to "Author Guidelines", guideline_path  %></li>
+        <li><%= link_to "Contact Us", contactus_path  %></li>
+      </ul>
+    </div>
+  </div>
+</div>
